@@ -2,7 +2,9 @@
 
 This is a simple speed reader that takes input from a TXT file and reads through it, word by word. It defaults to 160wpm but this can be changed.
 
-### Installation
+## Installation
+
+### git
 
 ```$ git clone https://github.com/h5law/speed-reader.git```
 
@@ -12,5 +14,16 @@ This is a simple speed reader that takes input from a TXT file and reads through
 
 ```$ python3 reader.py [-hV] [-w WPM] [-i FILE]```
 
+### pip
 
+```$ pip install --user speed-reader```
+
+
+## Usage
+
+```$ python3 reader.py -h```
+
+```usage: reader [-h] [-w WPM] [-i INPUT]```
+
+## Misc
 You can find the project homepage on [GitHub](https://github.com/h5law/speed-reader)
