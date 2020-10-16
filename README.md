@@ -4,11 +4,12 @@ This is a simple speed reader that takes input from a TXT file and reads through
 
 ### Installation
 
-#### git
-
 ```$ git clone https://github.com/h5law/speed-reader.git```
+
 ```$ cd speed-reader```
+
 ```$ pip install -r requirements.txt```
+
 ```$ python3 reader.py [-hV] [-w WPM] [-i FILE]```
 
 
