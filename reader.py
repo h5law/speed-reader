@@ -71,11 +71,9 @@ class Reader:
             return
         else:
             n = self.start_node
-            counter = 0
             start_time = time.time()
             total_time = self.length / (wpm * 60)
             while n is not None:
-                counter += 1
                 elapsed = time.time() - start_time
                 print(f"-> {n.item}")
                 print(f"{round(elapsed, 2)}s")
@@ -93,8 +91,8 @@ class Reader:
 
 
 def get_wait_time(word, wpm):
-    if len(word) <= 0:
-        return 1/8
+    if len(word) <= 3:
+        return 1/6
     else:
         return (np.log(len(word)) / ((wpm / 60) * 1.75))
 
