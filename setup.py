@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="speed-reader",
-    version="0.0.2",
+    version="1.0.0",
     author="h5law",
     author_email="h5law@pm.me",
     description="A speed reader implemented in Python",
@@ -19,5 +19,9 @@ setuptools.setup(
         "Operating System :: OS Independent"
     ],
     python_requires='>=3.6',
-    install_requires=["numpy"],
+    install_requires=["numpy", "click"],
+    entry_points='''
+        [console_scripts]
+        speed-reader=reader:read
+    ''',
 )
