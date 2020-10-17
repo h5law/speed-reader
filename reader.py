@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-import sys
+import click
 import time
-import argparse
 import numpy as np
 from pathlib import Path
 
 class Node:
     def __init__(self, data):
-        self.item = data
+        self.word = data
         self.nref = None
         self.pref = None
 
@@ -65,7 +64,7 @@ class Reader:
         n.pref.nref = none
         self.length -= 1
 
-    def read_list_from_start(self, wpm):
+    def traverse_list(self, wpm):
         if self.start_node is None:
             print("List has no elements")
             return
@@ -75,13 +74,8 @@ class Reader:
             total_time = self.length / (wpm * 60)
             while n is not None:
                 elapsed = time.time() - start_time
-                print(f"-> {n.item}")
-                print(f"{round(elapsed, 2)}s")
-                sys.stdout.write("\033[F")
-                sys.stdout.write("\033[K")
-                sys.stdout.write("\033[F")
-                sys.stdout.write("\033[K")
-                time.sleep(get_wait_time(n.item, wpm))
+                display_line(n.word, round(elapsed, 2))
+                time.sleep(get_word_wait_time(n.word, wpm))
                 if n.nref is not None:
                     n = n.nref
                 else:
@@ -89,12 +83,18 @@ class Reader:
                     print(f"{self.length} words read in {taken}")
                     return
 
+def display_line(text, time):
+    click.clear()
+    width = click.get_terminal_size()[0]
+    word = click.style(text, bold=True, underline=True)
+    print(f"{text:}{time:>{(width - len(word)) + 6}}s")
 
-def get_wait_time(word, wpm):
+
+def get_word_wait_time(word, wpm):
     if len(word) <= 3:
-        return 1/6
+        return (0.25)
     else:
-        return (np.log(len(word)) / ((wpm / 60) * 1.75))
+        return ((np.log(len(word)) / ((wpm / 60) * 1.65)))
 
 def file_to_array(path):
     line_list = word_list = []
@@ -111,29 +111,24 @@ def array_to_dll(array, dll):
         for word in line:
             dll.insert_at_end(word)
 
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog='reader',
-            description="A speed reader implemented in Python")
-    parser.add_argument('-i', '--input', action='store', type=Path,
-            help="Input file to read from")
-    parser.add_argument('-w', '--wpm', action='store', type=int,
-            default=160, help="Words to display per minute")
-    args = parser.parse_args()
-
-    if not args.input.exists():
-        print(f"{__file__}: Input file `{args.input}' doesn't exist")
-        exit(1)
-    elif not args.input:
-        print(f"{__file__}: No input file provided");
+@click.command()
+@click.version_option("1.0.0")
+@click.option("--wpm", default=160,
+        help="Read at specified WPM, defaults to 160")
+@click.argument("path", required=True, type=Path)
+def read(path, wpm):
+    if not path.exists():
+        print(f"Input file `{path}' doesn't exist")
         exit(1)
 
     # create new DLL
     speed_reader = Reader()
-
     # read file into DLL structure
-    array = file_to_array(args.input)
+    array = file_to_array(path)
     array_to_dll(array, speed_reader)
-
     # read through DLL
-    speed_reader.read_list_from_start(args.wpm)
+    speed_reader.traverse_list(wpm)
+
+
+if __name__ == "__main__":
+    read()
