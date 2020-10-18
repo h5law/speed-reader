@@ -21,8 +21,11 @@ This is a simple speed reader that takes input from a TXT file and reads through
 ```Usage: speed-reader [OPTIONS] PATH```
 
 ```Options:```
+
 ```  --version      Show the version and exit.```
+
 ```  --wpm INTEGER  Read at specified WPM, defaults to 160```
+
 ```  --help         Show this message and exit.```
 
 
