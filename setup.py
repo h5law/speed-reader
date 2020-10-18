@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent"
     ],
     python_requires='>=3.6',
-    install_requires=["numpy", "click"],
+    install_requires=["click"],
     entry_points={
         'console_scripts': [
             'speed-reader = reader:main',

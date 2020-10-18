@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import click
 import time
-import numpy as np
+from math import log
 from pathlib import Path
 
 
@@ -17,7 +17,7 @@ def get_word_wait_time(word, wpm):
     if len(word) <= 3:
         return (1/12) * wps
     else:
-        return ((np.log(len(word)) / (wps * 1.45)))
+        return ((log(len(word), 2)) / (wps * 1.45))
 
 def display_line(word, time=""):
     click.clear()
