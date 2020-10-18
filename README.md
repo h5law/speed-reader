@@ -13,11 +13,6 @@ This is a simple speed reader that takes input from a TXT file and reads through
 ```$ pip install .```
 
 
-### pip
-
-```$ pip install --user speed-reader```
-
-
 ## Usage
 
 ```$ speed-reader --help```

@@ -1,1 +1,1 @@
-from . import reader
+#!/usr/bin/env python3
