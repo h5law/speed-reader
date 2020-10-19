@@ -45,11 +45,11 @@ def read_array(array, wpm):
     display_line(f"Read {total_words} words in {taken}.")
 
 @click.command()
-@click.version_option("1.0.5_dev2")
+@click.version_option("1.1.0")
 @click.option("--wpm", default=160,
         help="Read at specified WPM, defaults to 160")
 @click.argument("path", required=True, type=Path)
-def read(path, wpm):
+def main(path, wpm):
     if not path.exists():
         print(f"'{path}' doesn't exist")
         exit(1)
@@ -60,4 +60,4 @@ def read(path, wpm):
 
 
 if __name__ == "__main__":
-    read()
+    main()
